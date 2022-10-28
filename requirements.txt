@@ -1,0 +1,4 @@
+fpstimer==0.0.1
+opencv_python==4.6.0.66
+playsound==1.3.0
+pywin32==304
