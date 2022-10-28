@@ -72,6 +72,3 @@ for index,asciiFrame in enumerate(ascii.frames,start=1):
 	title(f"({remMin}:{remSec:02}/{min}:{sec:02}) {index}/{vidFrameCount}")
 	print(asciiFrame,end="")
 	timer.sleep()
-
-print("\n")
-run("pause")
