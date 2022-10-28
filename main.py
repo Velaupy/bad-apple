@@ -1,8 +1,8 @@
-from random		import randint as randInt,choices as randChoice
-from string		import ascii_letters,digits,punctuation
+from random			import randint as randInt,choices as randChoice
+from string			import ascii_letters,digits,punctuation
 from win32api		import SetConsoleTitle as title
-from os			import system as run,path
-from time		import perf_counter
+from os				import system as run,path
+from time			import perf_counter
 from playsound		import playsound
 from fpstimer		import FPSTimer
 import cv2 as cv
@@ -21,7 +21,7 @@ vidFrameCount:int =	int(vid.get(cv.CAP_PROP_FRAME_COUNT))
 vidFPS:float =		vid.get(cv.CAP_PROP_FPS)
 
 class ascii:
-	width:int =		vidWidth//4
+	width:int =			vidWidth//4
 	height:int =		vidHeight//6	# smaller than the width to not make it look stretched in the console
 	chars:tuple[str] =	(" ",".","°","*","o","O","#","@")[::1]
 	frames:list[str] =	[]
@@ -44,7 +44,7 @@ while 1:
 		frame = cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
 		frame = cv.resize(frame,(ascii.width,ascii.height))
 		# https://wikipedia.org/wiki/ANSI_escape_code#CSI_(Control_Sequence_Introducer)_sequences
-		#		    vvvvvvvvvvvv
+		#					vvvvvvvvvvvv
 		ascii.frames.append(f"\x1b[1;1H" + "\n".join(
 			map(
 				lambda line:"".join(
