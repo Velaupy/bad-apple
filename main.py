@@ -15,7 +15,6 @@ vid =	cv.VideoCapture(vidName)
 assert vid.isOpened(),"failed to open "+vidName
 assert path.isfile(audName),"audio file not found"
 
-# why the fuck are these floats instead of integers (not regarding fps)
 vidWidth:int =		int(vid.get(cv.CAP_PROP_FRAME_WIDTH))
 vidHeight:int =		int(vid.get(cv.CAP_PROP_FRAME_HEIGHT))
 vidFrameCount:int =	int(vid.get(cv.CAP_PROP_FRAME_COUNT))
@@ -40,7 +39,7 @@ while 1:
 	if notError:
 		doneFrames = len(ascii.frames)
 		curFrameNum = doneFrames+1
-		# https://stackoverflow.com/a/473376											avoiding zero division error
+		# https://stackoverflow.com/a/473376
 		renderETCtime = ((perf_counter() - renderStartTime) * (vidFrameCount - doneFrames)) / (doneFrames or 1) 
 		title(f"({round(curFrameNum/vidFrameCount * 100)}%) {curFrameNum}/{vidFrameCount} (ETC: {renderETCtime:.2f} seconds)")
 		print(f"\r[{rhetoricFunniness()}] Rendering [{rhetoricFunniness()}]",end="")
