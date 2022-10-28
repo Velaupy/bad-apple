@@ -20,8 +20,6 @@ vidHeight:int =		int(vid.get(cv.CAP_PROP_FRAME_HEIGHT))
 vidFrameCount:int =	int(vid.get(cv.CAP_PROP_FRAME_COUNT))
 vidFPS:float =		vid.get(cv.CAP_PROP_FPS)
 
-print(vidWidth,vidHeight)
-
 class ascii:
 	width:int =		vidWidth//4
 	height:int =		vidHeight//6	# smaller than the width to not make it look stretched in the console
