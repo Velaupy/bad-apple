@@ -21,15 +21,14 @@ vidFrameCount:int =	int(vid.get(cv.CAP_PROP_FRAME_COUNT))
 vidFPS:float =		vid.get(cv.CAP_PROP_FPS)
 
 class ascii:
-	width:int =			vidWidth//4
-	height:int =		vidHeight//6	# smaller than the width to not make it look stretched in the console
-	chars:tuple[str] =	(" ",".","°","*","o","O","#","@")[::1]
-	frames:list[str] =	[]
+	width:int =				vidWidth//4
+	height:int =			vidHeight//6	# smaller than the width to not make it look stretched in the console
+	chars:tuple[str,...] =	(" ",".","°","*","o","O","#","@")[::1]
+	frames:list[str] =		[]
 
-run(f"cls && color 0f")	# clear console and make the white text brighter
+run("cls && color 0f")	# clear console and make the white text brighter
 
 rhetoricFunniness =			lambda:"".join(randChoice(ascii_letters+digits+punctuation,k=randInt(1,4))).center(4)
-finishedRendering:bool =	False
 renderStartTime:float =		perf_counter()
 
 while 1:
@@ -37,7 +36,7 @@ while 1:
 	if notError:
 		doneFrames = len(ascii.frames)
 		curFrameNum = doneFrames+1
-		# https://stackoverflow.com/a/473376
+		# https://stackoverflow.com/a/473376											avoiding zero division error
 		renderETCtime = ((perf_counter() - renderStartTime) * (vidFrameCount - doneFrames)) / (doneFrames or 1) 
 		title(f"({round(curFrameNum/vidFrameCount * 100)}%) {curFrameNum}/{vidFrameCount} (ETC: {renderETCtime:.2f} seconds)")
 		print(f"\r[{rhetoricFunniness()}] Rendering [{rhetoricFunniness()}]",end="")
@@ -45,7 +44,7 @@ while 1:
 		frame = cv.resize(frame,(ascii.width,ascii.height))
 		# https://wikipedia.org/wiki/ANSI_escape_code#CSI_(Control_Sequence_Introducer)_sequences
 		#					vvvvvvvvvvvv
-		ascii.frames.append(f"\x1b[1;1H" + "\n".join(
+		ascii.frames.append("\x1b[1;1H" + "\n".join(
 			map(
 				lambda line:"".join(
 						map(
@@ -58,9 +57,7 @@ while 1:
 				frame
 			)
 		))
-	else:
-		finishedRendering = True
-		break
+	else:break
 
 timer = FPSTimer(vidFPS)
 min,sec = divmod(vidFrameCount//round(vidFPS),60) # https://stackoverflow.com/a/775075
